@@ -15,58 +15,58 @@ type Album struct {
 }
 
 type Artist struct {
-	ArtistID int32       `json:"artist_id"`
-	Name     pgtype.Text `json:"name"`
+	ArtistID int32   `json:"artist_id"`
+	Name     *string `json:"name"`
 }
 
 type Customer struct {
-	CustomerID   int32       `json:"customer_id"`
-	FirstName    string      `json:"first_name"`
-	LastName     string      `json:"last_name"`
-	Company      pgtype.Text `json:"company"`
-	Address      pgtype.Text `json:"address"`
-	City         pgtype.Text `json:"city"`
-	State        pgtype.Text `json:"state"`
-	Country      pgtype.Text `json:"country"`
-	PostalCode   pgtype.Text `json:"postal_code"`
-	Phone        pgtype.Text `json:"phone"`
-	Fax          pgtype.Text `json:"fax"`
-	Email        string      `json:"email"`
-	SupportRepID pgtype.Int4 `json:"support_rep_id"`
+	CustomerID   int32   `json:"customer_id"`
+	FirstName    string  `json:"first_name"`
+	LastName     string  `json:"last_name"`
+	Company      *string `json:"company"`
+	Address      *string `json:"address"`
+	City         *string `json:"city"`
+	State        *string `json:"state"`
+	Country      *string `json:"country"`
+	PostalCode   *string `json:"postal_code"`
+	Phone        *string `json:"phone"`
+	Fax          *string `json:"fax"`
+	Email        string  `json:"email"`
+	SupportRepID *int32  `json:"support_rep_id"`
 }
 
 type Employee struct {
 	EmployeeID int32            `json:"employee_id"`
 	LastName   string           `json:"last_name"`
 	FirstName  string           `json:"first_name"`
-	Title      pgtype.Text      `json:"title"`
-	ReportsTo  pgtype.Int4      `json:"reports_to"`
+	Title      *string          `json:"title"`
+	ReportsTo  *int32           `json:"reports_to"`
 	BirthDate  pgtype.Timestamp `json:"birth_date"`
 	HireDate   pgtype.Timestamp `json:"hire_date"`
-	Address    pgtype.Text      `json:"address"`
-	City       pgtype.Text      `json:"city"`
-	State      pgtype.Text      `json:"state"`
-	Country    pgtype.Text      `json:"country"`
-	PostalCode pgtype.Text      `json:"postal_code"`
-	Phone      pgtype.Text      `json:"phone"`
-	Fax        pgtype.Text      `json:"fax"`
-	Email      pgtype.Text      `json:"email"`
+	Address    *string          `json:"address"`
+	City       *string          `json:"city"`
+	State      *string          `json:"state"`
+	Country    *string          `json:"country"`
+	PostalCode *string          `json:"postal_code"`
+	Phone      *string          `json:"phone"`
+	Fax        *string          `json:"fax"`
+	Email      *string          `json:"email"`
 }
 
 type Genre struct {
-	GenreID int32       `json:"genre_id"`
-	Name    pgtype.Text `json:"name"`
+	GenreID int32   `json:"genre_id"`
+	Name    *string `json:"name"`
 }
 
 type Invoice struct {
 	InvoiceID         int32            `json:"invoice_id"`
 	CustomerID        int32            `json:"customer_id"`
 	InvoiceDate       pgtype.Timestamp `json:"invoice_date"`
-	BillingAddress    pgtype.Text      `json:"billing_address"`
-	BillingCity       pgtype.Text      `json:"billing_city"`
-	BillingState      pgtype.Text      `json:"billing_state"`
-	BillingCountry    pgtype.Text      `json:"billing_country"`
-	BillingPostalCode pgtype.Text      `json:"billing_postal_code"`
+	BillingAddress    *string          `json:"billing_address"`
+	BillingCity       *string          `json:"billing_city"`
+	BillingState      *string          `json:"billing_state"`
+	BillingCountry    *string          `json:"billing_country"`
+	BillingPostalCode *string          `json:"billing_postal_code"`
 	Total             pgtype.Numeric   `json:"total"`
 }
 
@@ -79,13 +79,13 @@ type InvoiceLine struct {
 }
 
 type MediaType struct {
-	MediaTypeID int32       `json:"media_type_id"`
-	Name        pgtype.Text `json:"name"`
+	MediaTypeID int32   `json:"media_type_id"`
+	Name        *string `json:"name"`
 }
 
 type Playlist struct {
-	PlaylistID int32       `json:"playlist_id"`
-	Name       pgtype.Text `json:"name"`
+	PlaylistID int32   `json:"playlist_id"`
+	Name       *string `json:"name"`
 }
 
 type PlaylistTrack struct {
@@ -96,11 +96,11 @@ type PlaylistTrack struct {
 type Track struct {
 	TrackID      int32          `json:"track_id"`
 	Name         string         `json:"name"`
-	AlbumID      pgtype.Int4    `json:"album_id"`
+	AlbumID      *int32         `json:"album_id"`
 	MediaTypeID  int32          `json:"media_type_id"`
-	GenreID      pgtype.Int4    `json:"genre_id"`
-	Composer     pgtype.Text    `json:"composer"`
+	GenreID      *int32         `json:"genre_id"`
+	Composer     *string        `json:"composer"`
 	Milliseconds int32          `json:"milliseconds"`
-	Bytes        pgtype.Int4    `json:"bytes"`
+	Bytes        *int32         `json:"bytes"`
 	UnitPrice    pgtype.Numeric `json:"unit_price"`
 }

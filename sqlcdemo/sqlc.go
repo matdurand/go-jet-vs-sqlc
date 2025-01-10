@@ -55,6 +55,16 @@ func main() {
 	albumsAndArtists, err := queries.ListAlbumsWithArtist(ctx)
 	panicOnError(err)
 	jsonSave("./sqlc-albums-and-artists.json", albumsAndArtists)
+
+	acdc := "AC/DC"
+	acDcSongs, err := queries.FindTracks(ctx, sqlc.FindTracksParams{
+		ByAlbumTitle: true,
+		AlbumTitle:   "Let There Be Rock",
+		ByComposer:   true,
+		Composer:     &acdc,
+	})
+	panicOnError(err)
+	jsonSave("./sqlc-acdc-songs.json", acDcSongs)
 }
 
 func jsonSave(path string, v interface{}) {

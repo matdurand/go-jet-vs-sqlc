@@ -9,6 +9,59 @@ import (
 	"context"
 )
 
+const findTracks = `-- name: FindTracks :many
+select track.track_id, track.name, track.composer, album.title
+from track
+join album on track.album_id = album.album_id
+where
+    (NOT $1::boolean or album.title = $2) AND
+    (NOT $3::boolean or track.composer = $4)
+`
+
+type FindTracksParams struct {
+	ByAlbumTitle bool    `json:"by_album_title"`
+	AlbumTitle   string  `json:"album_title"`
+	ByComposer   bool    `json:"by_composer"`
+	Composer     *string `json:"composer"`
+}
+
+type FindTracksRow struct {
+	TrackID  int32   `json:"track_id"`
+	Name     string  `json:"name"`
+	Composer *string `json:"composer"`
+	Title    string  `json:"title"`
+}
+
+func (q *Queries) FindTracks(ctx context.Context, arg FindTracksParams) ([]FindTracksRow, error) {
+	rows, err := q.db.Query(ctx, findTracks,
+		arg.ByAlbumTitle,
+		arg.AlbumTitle,
+		arg.ByComposer,
+		arg.Composer,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []FindTracksRow
+	for rows.Next() {
+		var i FindTracksRow
+		if err := rows.Scan(
+			&i.TrackID,
+			&i.Name,
+			&i.Composer,
+			&i.Title,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const listAlbums = `-- name: ListAlbums :many
 SELECT album_id, title, artist_id FROM album
 `
